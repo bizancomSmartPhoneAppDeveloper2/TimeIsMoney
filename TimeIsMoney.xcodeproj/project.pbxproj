@@ -21,6 +21,10 @@
 		F46DA23019CB403400AB1CEC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F46DA21219CB403300AB1CEC /* UIKit.framework */; };
 		F46DA23819CB403400AB1CEC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F46DA23619CB403400AB1CEC /* InfoPlist.strings */; };
 		F46DA23A19CB403400AB1CEC /* TimeIsMoneyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F46DA23919CB403400AB1CEC /* TimeIsMoneyTests.m */; };
+		F46DA24519CB41AE00AB1CEC /* NPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F46DA24419CB41AE00AB1CEC /* NPViewController.m */; };
+		F46DA24B19CB44E800AB1CEC /* CDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F46DA24A19CB44E800AB1CEC /* CDViewController.m */; };
+		F46DA24E19CB466800AB1CEC /* FNViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F46DA24D19CB466800AB1CEC /* FNViewController.m */; };
+		F4B8383219CB4A5300F11366 /* MSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B8383119CB4A5300F11366 /* MSViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,14 @@
 		F46DA23519CB403400AB1CEC /* TimeIsMoneyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TimeIsMoneyTests-Info.plist"; sourceTree = "<group>"; };
 		F46DA23719CB403400AB1CEC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F46DA23919CB403400AB1CEC /* TimeIsMoneyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeIsMoneyTests.m; sourceTree = "<group>"; };
+		F46DA24319CB41AE00AB1CEC /* NPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPViewController.h; sourceTree = "<group>"; };
+		F46DA24419CB41AE00AB1CEC /* NPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPViewController.m; sourceTree = "<group>"; };
+		F46DA24919CB44E800AB1CEC /* CDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDViewController.h; path = ../CDViewController.h; sourceTree = "<group>"; };
+		F46DA24A19CB44E800AB1CEC /* CDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDViewController.m; path = ../CDViewController.m; sourceTree = "<group>"; };
+		F46DA24C19CB466800AB1CEC /* FNViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNViewController.h; sourceTree = "<group>"; };
+		F46DA24D19CB466800AB1CEC /* FNViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNViewController.m; sourceTree = "<group>"; };
+		F4B8383019CB4A5300F11366 /* MSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSViewController.h; sourceTree = "<group>"; };
+		F4B8383119CB4A5300F11366 /* MSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +129,14 @@
 				F46DA22019CB403300AB1CEC /* Main.storyboard */,
 				F46DA22319CB403400AB1CEC /* ViewController.h */,
 				F46DA22419CB403400AB1CEC /* ViewController.m */,
+				F46DA24319CB41AE00AB1CEC /* NPViewController.h */,
+				F46DA24419CB41AE00AB1CEC /* NPViewController.m */,
+				F4B8383019CB4A5300F11366 /* MSViewController.h */,
+				F4B8383119CB4A5300F11366 /* MSViewController.m */,
+				F46DA24919CB44E800AB1CEC /* CDViewController.h */,
+				F46DA24A19CB44E800AB1CEC /* CDViewController.m */,
+				F46DA24C19CB466800AB1CEC /* FNViewController.h */,
+				F46DA24D19CB466800AB1CEC /* FNViewController.m */,
 				F46DA22619CB403400AB1CEC /* Images.xcassets */,
 				F46DA21519CB403300AB1CEC /* Supporting Files */,
 			);
@@ -249,9 +269,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F46DA24B19CB44E800AB1CEC /* CDViewController.m in Sources */,
 				F46DA22519CB403400AB1CEC /* ViewController.m in Sources */,
+				F46DA24E19CB466800AB1CEC /* FNViewController.m in Sources */,
 				F46DA21F19CB403300AB1CEC /* AppDelegate.m in Sources */,
+				F46DA24519CB41AE00AB1CEC /* NPViewController.m in Sources */,
 				F46DA21B19CB403300AB1CEC /* main.m in Sources */,
+				F4B8383219CB4A5300F11366 /* MSViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +480,7 @@
 				F46DA23F19CB403400AB1CEC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F46DA24019CB403400AB1CEC /* Build configuration list for PBXNativeTarget "TimeIsMoneyTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +489,7 @@
 				F46DA24219CB403400AB1CEC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
