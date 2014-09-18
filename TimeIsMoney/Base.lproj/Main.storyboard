@@ -308,6 +308,9 @@
                                 <state key="normal" title="開始／一時停止">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="startStopButton:" destination="p0p-wN-6Ax" eventType="touchUpInside" id="9w5-Zy-lEo"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eCh-a4-04g">
                                 <rect key="frame" x="100" y="468" width="120" height="30"/>
@@ -322,6 +325,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="TimeCostLabel" destination="qRO-9U-l88" id="k37-wW-3wd"/>
+                        <outlet property="pjNameLabel" destination="Jra-5G-q57" id="bbC-ZL-d6S"/>
+                        <outlet property="pjStatusLabel" destination="oHu-1z-ITV" id="cq1-US-xhv"/>
+                        <outlet property="pjTimeLabel" destination="x0z-BU-gx8" id="Dm1-S1-qNk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ic6-Fn-hrv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -400,6 +409,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="pjNameLabel" destination="K3U-T7-jpc" id="hRn-Xq-UXO"/>
+                        <outlet property="resultCostLabel" destination="jRc-kA-vZ4" id="HmM-2p-mUe"/>
+                        <outlet property="resultJikyuLabel" destination="nKT-A1-3fK" id="70Z-vp-7v7"/>
+                        <outlet property="resultTimeLabel" destination="ggc-aK-CH2" id="Tuf-IS-NTG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p6Q-vM-v8Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

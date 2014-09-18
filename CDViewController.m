@@ -12,7 +12,26 @@
 
 @end
 
-@implementation CDViewController
+@implementation CDViewController{
+    //タイマーで必要なインスタンスと変数
+    NSTimer *myTimer;
+    NSInteger hours;
+    NSInteger minutes;
+    NSInteger seconds;
+    BOOL isOver;//設定時間を過ぎたかどうかの判定、YESならマイナスカウントを始める
+    //コスト表示用のタイマー
+    NSTimer *costTimer;
+    NSInteger cost;
+    //目標時給と報酬から割り出される数字の変数
+    float mokuhyouJikan;
+    NSInteger mokuhyouJikanKirisute;
+    float ichienByousu;
+    
+    //初期画面で記入される予定の変数
+    float jikyu;
+    float housyu;
+    NSString *projectName;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,7 +45,34 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //引き継ぐ予定の変数、今は直接代入する
+    jikyu = 2000;
+    housyu = 10000;
+    projectName = @"第一回アプリ開発（仮）";
+    
     // Do any additional setup after loading the view.
+    //プロジェク名と状態をラベルに表示
+    self.pjNameLabel.text = [NSString stringWithFormat:@"%@",projectName];
+    self.pjStatusLabel.text = [NSString stringWithFormat:@"目標終了時間まであと…"];
+    
+    //目標時給と報酬から目標時間を割り出す
+    mokuhyouJikan = housyu/jikyu*60;
+    NSLog(@"目標時間は%f分",mokuhyouJikan);
+    mokuhyouJikanKirisute = mokuhyouJikan;
+    NSLog(@"目標時間の小数点を切り捨てて%ld分",(long)mokuhyouJikanKirisute);
+    //アプリを立ち上げた時点で時、分、秒に数字を代入。ラベルにそれを表示 ???(long)???
+    hours = mokuhyouJikanKirisute/60;
+    minutes = mokuhyouJikanKirisute%60;
+    seconds = 0;
+    [self writePjTimeLabel];
+    
+    //時給から１円あたりの秒数を計算
+    ichienByousu = 3600/jikyu;
+    NSLog(@"１円稼ぐのにかかる秒数は%f秒",ichienByousu);
+    
+    //時間コストを0として表示
+    cost = 0;
+    self.TimeCostLabel.text = [NSString stringWithFormat:@"%ld",(long)cost]; ///???(long)???
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,5 +91,112 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+//開始／停止ボタンをおした時の動作
+- (IBAction)startStopButton:(id)sender {
+    //myTimerが動いている場合止める
+    if ([myTimer isValid]) {
+        [myTimer invalidate];
+        [costTimer invalidate];
+    }else{
+        //myTimerが動いてない場合動かす（timerメソッド）
+        [self countTimer];
+        [self costTimer];
+    }
+}
+
+//~~~~~~~~~~~~~~~~~~~~~ここからタイマーカウント~~~~~~~~~~~~~~~~~~~~~
+//タイマーでcountDownメソッドを１秒ごとに繰り返し呼ぶ
+-(void)countTimer{
+    float num = 1;
+    myTimer = [NSTimer
+               scheduledTimerWithTimeInterval:num
+               target: self
+               selector:@selector(countDown)
+               userInfo:nil
+               repeats:YES];
+}
+
+//タイマーで呼ばれるcountDownメソッド
+-(void)countDown{
+    //まだ00:00:00になってなかったら…
+    if (!isOver) {
+        if(seconds>0){
+            seconds--;
+            self.pjTimeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",(long)hours,(long)minutes,(long)seconds];
+        }else if(minutes != 0 && seconds == 0){
+            //分が0ではない状態で秒が0になったら、分から1引いて秒を59にする（0秒と60秒は同じなので59秒からカウントダウン）
+            minutes--;
+            seconds=59;
+            [self writePjTimeLabel];
+        }
+        //分と秒が0だが、時が0ではない場合、時から1引いて分と秒を59にする。
+        else if(hours != 0 && minutes == 0 && seconds == 0){
+            hours--;
+            minutes = 59;
+            seconds = 59;
+            [self writePjTimeLabel];
+        }
+        //時、分、秒すべて0になったらisOverをYESにする
+        else if(hours == 0 && minutes == 0 && seconds ==0){
+            isOver = YES;
+            [self akajiCount];
+        }
+    }
+    else{
+        //カウントダウンが終わった場合マイナスカウントメソッドを実行
+        [self akajiCount];
+    }
+}
+
+//countDownメソッドで使うprojectTimeLabelに残り時間を表示するためのメソッド
+-(void)writePjTimeLabel{
+    self.pjTimeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",(long)hours,(long)minutes,(long)seconds];
+}
+
+//赤字に陥った後のカウントアップメソッド
+-(void)akajiCount{
+    //背景を赤にするメソッド
+    self.view.backgroundColor = [UIColor redColor];
+    self.pjStatusLabel.text = [NSString stringWithFormat:@"目標時間をオーバーしています"];
+    //カウントアップをしていくメソッド
+    //分と秒が59だったら時に1を足して分と秒を0に戻す.
+    if (minutes == 59 && seconds == 59) {
+        hours++;
+        minutes = 0;
+        seconds =0;
+        [self writePjTimeLabel];
+        //秒が59だったら分に1を足して秒を0に戻す.
+    }else if (seconds == 59) {
+        minutes++;
+        seconds = 0;
+        [self writePjTimeLabel];
+        seconds++;
+        //秒に1ずつ足していく
+    }else{
+        seconds++;
+        [self writePjTimeLabel];
+    }
+}
+//~~~~~~~~~~~~~~~~~~~~~タイマーカウントここまで~~~~~~~~~~~~~~~~~~~~~
+
+//~~~~~~~~~~~~~~~~~~~~~ここからコストカウント~~~~~~~~~~~~~~~~~~~~~
+//コストを表示するタイマー
+-(void)costTimer{
+    costTimer = [NSTimer
+                 scheduledTimerWithTimeInterval:ichienByousu
+                 target: self
+                 selector:@selector(witeCostLabel)
+                 userInfo:nil
+                 repeats:YES];
+}
+
+//コストラベルの更新をするメソッド
+-(void)witeCostLabel{
+    cost++;
+    self.TimeCostLabel.text = [NSString stringWithFormat:@"¥%ld",(long)cost];
+}
+//~~~~~~~~~~~~~~~~~~~~~コストカウントここまで~~~~~~~~~~~~~~~~~~~~~
+
 
 @end

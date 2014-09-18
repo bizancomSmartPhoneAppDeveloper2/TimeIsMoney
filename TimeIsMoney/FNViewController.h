@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface FNViewController : UIViewController
-
+@property (weak, nonatomic) IBOutlet UILabel *pjNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *resultTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *resultCostLabel;
+@property (weak, nonatomic) IBOutlet UILabel *resultJikyuLabel;
 @end

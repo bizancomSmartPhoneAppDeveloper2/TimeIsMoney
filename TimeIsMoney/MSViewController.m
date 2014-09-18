@@ -81,6 +81,9 @@
     
     //目標時給をラベルに表示する（jikyuLabel）
     self.jikyuLabel.text = [NSString stringWithFormat:@"¥%ld",(long)jikyu]; //???(long)がないと黄色エラーが出る???
+    
+    //ソフトウェアキーボードを閉じる
+    [self closeSoftKeyboard];
 }
 
 //月給を入力した時の動作
