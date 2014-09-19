@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+//データを受け渡す先のクラスをインポートする
+#import "CDViewController.h"
 
 @interface NPViewController : UIViewController
+
+//MSから受け渡される変数のプロパティ
+@property NSInteger jikyu;
+@property (weak, nonatomic) IBOutlet UITextField *jikyuhyouji;
 
 @end

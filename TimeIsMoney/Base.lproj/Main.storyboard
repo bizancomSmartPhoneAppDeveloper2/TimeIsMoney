@@ -17,12 +17,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAl-VK-Nc9">
-                                <rect key="frame" x="71" y="269" width="179" height="30"/>
+                                <rect key="frame" x="105" y="269" width="110" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="テーブルビューにする予定">
+                                <state key="normal" title="仕事を開始する!">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="startBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ZvT-5p-p3O"/>
                                     <segue destination="VkJ-d8-TsN" kind="modal" id="arK-eE-qN0"/>
                                 </connections>
                             </button>
@@ -32,6 +33,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="120" y="-68"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="U7g-Rm-pHW">
@@ -52,7 +54,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="p0p-wN-6Ax" kind="modal" id="rlF-av-ZYn"/>
+                                    <segue destination="p0p-wN-6Ax" kind="modal" identifier="NPtoCD" id="rlF-av-ZYn"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="新規プロジェクト登録" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5p-Wp-E7Z">
@@ -67,6 +69,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="pjNameLabel:" destination="VkJ-d8-TsN" eventType="editingChanged" id="dB0-Av-Qyx"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="プロジェクト名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GK3-Bx-bO5">
                                 <rect key="frame" x="20" y="120" width="119" height="21"/>
@@ -78,7 +83,10 @@
                                 <rect key="frame" x="20" y="235" width="155" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="jikyuLabel:" destination="VkJ-d8-TsN" eventType="editingDidEnd" id="hZx-3y-Rka"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="目標時給" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lPB-tg-PBo">
                                 <rect key="frame" x="20" y="206" width="68" height="21"/>
@@ -96,7 +104,10 @@
                                 <rect key="frame" x="20" y="315" width="155" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                <connections>
+                                    <action selector="housyuLabel:" destination="VkJ-d8-TsN" eventType="editingChanged" id="1dy-2c-Fhk"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="報酬額" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wI4-Rs-gUx">
                                 <rect key="frame" x="20" y="286" width="51" height="21"/>
@@ -123,6 +134,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="jikyuhyouji" destination="zq6-zs-IYV" id="KKl-IF-tX2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aMu-8H-Ag1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -211,8 +225,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="時間" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BLW-Et-YC0">
-                                <rect key="frame" x="222" y="239" width="34" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="日" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BLW-Et-YC0">
+                                <rect key="frame" x="222" y="239" width="17" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -241,7 +255,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="VkJ-d8-TsN" kind="modal" id="5gP-1b-trY"/>
+                                    <segue destination="VkJ-d8-TsN" kind="modal" identifier="MStoNP" id="5gP-1b-trY"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -319,7 +333,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="zDi-Go-v1q" kind="modal" id="mbR-cK-CDc"/>
+                                    <segue destination="zDi-Go-v1q" kind="modal" identifier="CDtoFN" id="mbR-cK-CDc"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -427,6 +441,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="5gP-1b-trY"/>
+        <segue reference="arK-eE-qN0"/>
     </inferredMetricsTieBreakers>
 </document>

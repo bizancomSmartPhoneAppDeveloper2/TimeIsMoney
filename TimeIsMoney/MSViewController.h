@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+//データを受け渡す先のクラスをインポートする
+#import "NPViewController.h"
 
 @interface MSViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *jikyuLabel;

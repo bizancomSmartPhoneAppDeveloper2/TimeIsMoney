@@ -13,4 +13,16 @@
 @property (weak, nonatomic) IBOutlet UILabel *resultTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *resultCostLabel;
 @property (weak, nonatomic) IBOutlet UILabel *resultJikyuLabel;
+
+//CDから受け渡される変数のプロパティを宣言
+@property float jikyu;
+@property float housyu;
+@property NSString *projectName;
+@property NSInteger hours;
+@property NSInteger minutes;
+@property NSInteger seconds;
+@property BOOL isOver;
+@property float mokuhyouJikan;
+@property NSInteger mokuhyouJikanKirisute;
+
 @end

@@ -28,37 +28,37 @@
     float ichienByousu;
     
     //初期画面で記入される予定の変数
-    float jikyu;
-    float housyu;
-    NSString *projectName;
+//    float jikyu;
+//    float housyu;
+//    NSString *projectName;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+//{
+//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//    if (self) {
+//        // Custom initialization
+//    }
+//    return self;
+//}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //引き継ぐ予定の変数、今は直接代入する
-    jikyu = 2000;
-    housyu = 10000;
-    projectName = @"第一回アプリ開発（仮）";
+//    //引き継ぐ予定の変数、今は直接代入する
+//    jikyu = 2000;
+//    housyu = 10000;
+//    projectName = @"第一回アプリ開発（仮）";
     
     // Do any additional setup after loading the view.
     //プロジェク名と状態をラベルに表示
-    self.pjNameLabel.text = [NSString stringWithFormat:@"%@",projectName];
+    self.pjNameLabel.text = [NSString stringWithFormat:@"%@",_projectName];
     self.pjStatusLabel.text = [NSString stringWithFormat:@"目標終了時間まであと…"];
     
     //目標時給と報酬から目標時間を割り出す
-    mokuhyouJikan = housyu/jikyu*60;
+    mokuhyouJikan = _housyu/_jikyu*60;
     NSLog(@"目標時間は%f分",mokuhyouJikan);
-    mokuhyouJikanKirisute = mokuhyouJikan;
+    mokuhyouJikanKirisute = mokuhyouJikan; //mokuhyoujikan = floor(mokuhyouJikan)でも切り捨て可能だが分数計算でエラーが出る
     NSLog(@"目標時間の小数点を切り捨てて%ld分",(long)mokuhyouJikanKirisute);
     //アプリを立ち上げた時点で時、分、秒に数字を代入。ラベルにそれを表示 ???(long)???
     hours = mokuhyouJikanKirisute/60;
@@ -67,7 +67,7 @@
     [self writePjTimeLabel];
     
     //時給から１円あたりの秒数を計算
-    ichienByousu = 3600/jikyu;
+    ichienByousu = 3600/_jikyu;
     NSLog(@"１円稼ぐのにかかる秒数は%f秒",ichienByousu);
     
     //時間コストを0として表示
@@ -75,11 +75,11 @@
     self.TimeCostLabel.text = [NSString stringWithFormat:@"%ld",(long)cost]; ///???(long)???
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+//- (void)didReceiveMemoryWarning
+//{
+//    [super didReceiveMemoryWarning];
+//    // Dispose of any resources that can be recreated.
+//}
 
 /*
 #pragma mark - Navigation
@@ -198,5 +198,22 @@
 }
 //~~~~~~~~~~~~~~~~~~~~~コストカウントここまで~~~~~~~~~~~~~~~~~~~~~
 
-
+//FNに変数を引き渡すためのメソッド
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    //Segueの特定
+    if ( [[segue identifier] isEqualToString:@"CDtoFN"] ) {
+        FNViewController *fnvctl = [segue destinationViewController];
+        //ここで遷移先ビューのクラスの変数vcntlに値を渡している
+        fnvctl.jikyu = _jikyu;
+        fnvctl.housyu = _housyu;
+        fnvctl.projectName = _projectName;
+        fnvctl.hours = hours;
+        fnvctl.minutes = minutes;
+        fnvctl.seconds = seconds;
+        fnvctl.isOver = isOver;
+        fnvctl.mokuhyouJikan = mokuhyouJikan;
+        fnvctl.mokuhyouJikanKirisute = mokuhyouJikanKirisute;
+    }
+}
 @end

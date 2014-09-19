@@ -21,8 +21,8 @@
     NSInteger workDays;
     NSInteger totalWorkTime;
     
-    //目標時給
-    NSInteger jikyu;
+    //月額から計算した目標時給
+    NSInteger jikyuG;
 }
 
 
@@ -77,10 +77,10 @@
     //勤務日数に労働時間をかけて一ヶ月の労働時間を割り出す
     totalWorkTime = workDays*workTime;
     //月給を総労働時間で割って時給を算出する
-    jikyu = gekkyu/totalWorkTime;
+    jikyuG = gekkyu/totalWorkTime;
     
     //目標時給をラベルに表示する（jikyuLabel）
-    self.jikyuLabel.text = [NSString stringWithFormat:@"¥%ld",(long)jikyu]; //???(long)がないと黄色エラーが出る???
+    self.jikyuLabel.text = [NSString stringWithFormat:@"¥%ld",(long)jikyuG]; //???(long)がないと黄色エラーが出る???
     
     //ソフトウェアキーボードを閉じる
     [self closeSoftKeyboard];
@@ -108,4 +108,16 @@
 - (void)closeSoftKeyboard {
     [self.view endEditing: YES];
 }
+
+//NPに変数を引き渡す
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    //Segueの特定
+    if ( [[segue identifier] isEqualToString:@"MStoNP"] ) {
+        NPViewController *npvctl = [segue destinationViewController];
+        //ここで遷移先ビューのクラスの変数vcntlに値を渡している
+        npvctl.jikyu = jikyuG;
+    }
+}
+
 @end
