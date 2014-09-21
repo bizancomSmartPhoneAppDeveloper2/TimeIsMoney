@@ -7,8 +7,14 @@
 //
 
 #import "FNViewController.h"
+//音源用のフレームワーク2つインポート
+#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface FNViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *backImage;
+//音源用のプロパティを宣言
+@property AVAudioPlayer *btnSound;
 
 @end
 
@@ -18,19 +24,6 @@
     NSInteger resultTime;
     NSInteger resultCost;
     NSInteger resultJikyu;
-
-//    //カウントダウン画面から引き継いでくる予定の変数
-//    NSInteger hours;
-//    NSInteger minutes;
-//    NSInteger seconds;
-//    BOOL isOver;
-//    float mokuhyouJikan;
-//    NSInteger mokuhyouJikanKirisute;
-//    
-//    //初期画面で記入される予定の変数
-//    float jikyu;
-//    float housyu;
-//    NSString *projectName;
 }
 
 
@@ -46,50 +39,49 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    //最終的には引き継ぐようになるが、仮作成時は直接変数に値を代入する
-//    hours=2;
-//    minutes=26;
-//    seconds=36;
-//    isOver=NO;
-//    jikyu=2000;
-//    housyu=10000;
-//    projectName = @"第一回アプリ開発（仮）";
-//    mokuhyouJikan = housyu/jikyu*60;
-//    mokuhyouJikanKirisute = mokuhyouJikan;
-//    NSLog(@"目標時間は%d分",mokuhyouJikanKirisute);
+    NSLog(@"%d",_isOver);
+
     // Do any additional setup after loading the view.
-    
     //pjNameResultLabelにプロジェクト名を記入
     self.pjNameLabel.text = [NSString stringWithFormat:@"%@",_projectName];
     
     //resultTimeLabelにプロジェクト終了までにかかった時間の合計を記入
     if (_isOver) {
-        //マイナスに陥っていた場合の計算
+        //マイナス収支だった場合のかかった分数の計算
         resultTime = (_hours*60)+_minutes+_mokuhyouJikanKirisute;
+        _hours=resultTime/60;
+        _minutes=resultTime%60;
     }else{
-        //プラス収支だった場合の計算
-        resultTime = _mokuhyouJikanKirisute-((_hours*60)+_minutes+1);///?????なんで+1???
-        _seconds = 60-_seconds;
-        if (_seconds==60) {
-            _seconds=0;
+        //プラス収支だった場合のかかった分数の計算
+        if (_seconds == 0) {
+            resultTime = _mokuhyouJikanKirisute-((_hours*60)+_minutes);
+            _hours=resultTime/60;
+            _minutes=resultTime%60;
+        }else{
+            resultTime = _mokuhyouJikanKirisute-((_hours*60)+_minutes)-1;
+            _hours=resultTime/60;
+            _minutes=resultTime%60;
+            _seconds=60-_seconds;
         }
     }
-    _hours=resultTime/60;
-    _minutes=resultTime%60;
     self.resultTimeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",(long)_hours,(long)_minutes,(long)_seconds];
 
     //resultCostLabelに総コストから報酬額を引いた金額を記入
-    resultCost = (_hours*_jikyu)+((_minutes*_jikyu)/60);
+    resultCost = (_hours*_jikyu)+((_minutes*_jikyu)/60)+((_seconds*_jikyu)/3600);
     resultCost = _housyu - resultCost;
-    self.resultCostLabel.text = [NSString stringWithFormat:@"¥%ld",(long)resultCost];
+    self.resultCostLabel.text = [NSString stringWithFormat:@"%ld",(long)resultCost];
     
     //resultJikyuLabelに報酬額をかかった時間で割った「時給」を記入
     resultJikyu = (_housyu/((_hours*3600)+(_minutes*60)+_seconds))*3600;
-    self.resultJikyuLabel.text = [NSString stringWithFormat:@"¥%ld",(long)resultJikyu];
+    if (_housyu < resultJikyu) {
+        self.resultJikyuLabel.text = [NSString stringWithFormat:@"%ld",(long)_housyu];
+    }else{
+        self.resultJikyuLabel.text = [NSString stringWithFormat:@"%ld",(long)resultJikyu];
+    }
     
     //時間コストの収支がマイナスだった場合背景を赤くする
     if (resultCost < 0) {
-        self.view.backgroundColor = [UIColor redColor];
+        self.backImage.image = [UIImage imageNamed:@"fnback02"]; //背景画像を変更する
     }
 }
 
@@ -109,5 +101,12 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (IBAction)otuBtn:(UIButton *)sender {
+    NSString *path = [[NSBundle mainBundle]pathForResource:@"coin"ofType:@"mp3"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    self.btnSound = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:NULL];
+    [self.btnSound play];
+}
 
 @end

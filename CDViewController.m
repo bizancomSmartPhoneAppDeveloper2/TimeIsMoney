@@ -7,8 +7,14 @@
 //
 
 #import "CDViewController.h"
+//音源用のフレームワーク2つインポート
+#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface CDViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *backImage;
+//音源用のプロパティを宣言
+@property AVAudioPlayer *btnSound;
 
 @end
 
@@ -26,11 +32,6 @@
     float mokuhyouJikan;
     NSInteger mokuhyouJikanKirisute;
     float ichienByousu;
-    
-    //初期画面で記入される予定の変数
-//    float jikyu;
-//    float housyu;
-//    NSString *projectName;
 }
 
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -45,11 +46,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    //引き継ぐ予定の変数、今は直接代入する
-//    jikyu = 2000;
-//    housyu = 10000;
-//    projectName = @"第一回アプリ開発（仮）";
-    
+    //isOverの初期値を確認
+    NSLog(@"isOverの初期値は%d",isOver);
     // Do any additional setup after loading the view.
     //プロジェク名と状態をラベルに表示
     self.pjNameLabel.text = [NSString stringWithFormat:@"%@",_projectName];
@@ -57,10 +55,8 @@
     
     //目標時給と報酬から目標時間を割り出す
     mokuhyouJikan = _housyu/_jikyu*60;
-    NSLog(@"目標時間は%f分",mokuhyouJikan);
     mokuhyouJikanKirisute = mokuhyouJikan; //mokuhyoujikan = floor(mokuhyouJikan)でも切り捨て可能だが分数計算でエラーが出る
-    NSLog(@"目標時間の小数点を切り捨てて%ld分",(long)mokuhyouJikanKirisute);
-    //アプリを立ち上げた時点で時、分、秒に数字を代入。ラベルにそれを表示 ???(long)???
+    //時、分、秒に数字を代入。ラベルにそれを表示
     hours = mokuhyouJikanKirisute/60;
     minutes = mokuhyouJikanKirisute%60;
     seconds = 0;
@@ -68,7 +64,7 @@
     
     //時給から１円あたりの秒数を計算
     ichienByousu = 3600/_jikyu;
-    NSLog(@"１円稼ぐのにかかる秒数は%f秒",ichienByousu);
+//    NSLog(@"１円稼ぐのにかかる秒数は%f秒",ichienByousu);
     
     //時間コストを0として表示
     cost = 0;
@@ -103,6 +99,11 @@
         [self countTimer];
         [self costTimer];
     }
+    //音を鳴らす
+    NSString *path = [[NSBundle mainBundle]pathForResource:@"coin"ofType:@"mp3"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    self.btnSound = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:NULL];
+    [self.btnSound play];
 }
 
 //~~~~~~~~~~~~~~~~~~~~~ここからタイマーカウント~~~~~~~~~~~~~~~~~~~~~
@@ -141,6 +142,11 @@
         else if(hours == 0 && minutes == 0 && seconds ==0){
             isOver = YES;
             [self akajiCount];
+            //ついでにアラート音を鳴らす
+            NSString *path = [[NSBundle mainBundle]pathForResource:@"Time approach"ofType:@"mp3"];
+            NSURL *url = [NSURL fileURLWithPath:path];
+            self.btnSound = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:NULL];
+            [self.btnSound play];
         }
     }
     else{
@@ -157,8 +163,9 @@
 //赤字に陥った後のカウントアップメソッド
 -(void)akajiCount{
     //背景を赤にするメソッド
-    self.view.backgroundColor = [UIColor redColor];
-    self.pjStatusLabel.text = [NSString stringWithFormat:@"目標時間をオーバーしています"];
+//    self.view.backgroundColor = [UIColor redColor];
+//    self.pjStatusLabel.text = [NSString stringWithFormat:@"目標時間をオーバーしています"];
+    self.backImage.image = [UIImage imageNamed:@"cdback02"]; //背景画像を変更する
     //カウントアップをしていくメソッド
     //分と秒が59だったら時に1を足して分と秒を0に戻す.
     if (minutes == 59 && seconds == 59) {
@@ -194,7 +201,7 @@
 //コストラベルの更新をするメソッド
 -(void)witeCostLabel{
     cost++;
-    self.TimeCostLabel.text = [NSString stringWithFormat:@"¥%ld",(long)cost];
+    self.TimeCostLabel.text = [NSString stringWithFormat:@"%ld",(long)cost];
 }
 //~~~~~~~~~~~~~~~~~~~~~コストカウントここまで~~~~~~~~~~~~~~~~~~~~~
 
@@ -215,5 +222,12 @@
         fnvctl.mokuhyouJikan = mokuhyouJikan;
         fnvctl.mokuhyouJikanKirisute = mokuhyouJikanKirisute;
     }
+}
+
+- (IBAction)finishBtn:(UIButton *)sender {
+    NSString *path = [[NSBundle mainBundle]pathForResource:@"register"ofType:@"mp3"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    self.btnSound = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:NULL];
+    [self.btnSound play];
 }
 @end

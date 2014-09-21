@@ -7,9 +7,13 @@
 //
 
 #import "MSViewController.h"
+//音源用のフレームワーク2つインポート
+#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface MSViewController ()
-
+//音源用のプロパティを宣言
+@property AVAudioPlayer *btnSound;
 @end
 
 @implementation MSViewController{
@@ -38,8 +42,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    //背景クリックでソフトウェアキーボードを消す
+     //背景クリックでソフトウェアキーボードを消す
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeSoftKeyboard)];
     [self.view addGestureRecognizer:gestureRecognizer];
     
@@ -78,12 +81,16 @@
     totalWorkTime = workDays*workTime;
     //月給を総労働時間で割って時給を算出する
     jikyuG = gekkyu/totalWorkTime;
-    
     //目標時給をラベルに表示する（jikyuLabel）
-    self.jikyuLabel.text = [NSString stringWithFormat:@"¥%ld",(long)jikyuG]; //???(long)がないと黄色エラーが出る???
+    self.jikyuLabel.text = [NSString stringWithFormat:@"%ld",(long)jikyuG]; //???(long)がないと黄色エラーが出る???
     
-    //ソフトウェアキーボードを閉じる
-    [self closeSoftKeyboard];
+    
+    [self closeSoftKeyboard];//ソフトウェアキーボードを閉じる
+    //音源用の何か、ここでファイル名を変更
+    NSString *path = [[NSBundle mainBundle]pathForResource:@"coin"ofType:@"mp3"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    self.btnSound = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:NULL];
+    [self.btnSound play];//音がなるメソッド
 }
 
 //月給を入力した時の動作
@@ -118,6 +125,13 @@
         //ここで遷移先ビューのクラスの変数vcntlに値を渡している
         npvctl.jikyu = jikyuG;
     }
+}
+
+- (IBAction)okBtn:(UIButton *)sender {
+    NSString *path = [[NSBundle mainBundle]pathForResource:@"coin"ofType:@"mp3"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    self.btnSound = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:NULL];
+    [self.btnSound play];//音がなるメソッド
 }
 
 @end

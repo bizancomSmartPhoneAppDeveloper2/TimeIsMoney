@@ -7,9 +7,13 @@
 //
 
 #import "NPViewController.h"
+//音源用のフレームワーク2つインポート
+#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface NPViewController ()
-
+//音源用のプロパティを宣言
+@property AVAudioPlayer *btnSound;
 @end
 
 @implementation NPViewController
@@ -24,11 +28,6 @@
     //背景クリックでソフトウェアキーボードを消す
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeSoftKeyboard)];
     [self.view addGestureRecognizer:gestureRecognizer];
-    // Do any additional setup after loading the view.
-//    //とりあえず仮に代入
-//    jikyu = 2000;
-//    housyu = 50000;
-//    projectName = @"第一回アプリ開発（仮）";
     
     //もしjikyuの中身が空でなければテキストフィールドにjikyuの中身を表示
     if (_jikyu != 0) {
@@ -40,12 +39,6 @@
 - (void)closeSoftKeyboard {
     [self.view endEditing: YES];
 }
-
-//////月給を入力した時の動作
-//- (IBAction)monthlySalaryText:(UITextField *)sender {
-//    NSString *text = sender.text;
-//    gekkyu = text.integerValue;
-//}
 
 //プロジェクト名を入力した時の動作
 - (IBAction)pjNameLabel:(UITextField *)sender {
@@ -80,5 +73,19 @@
     }
 }
 
+- (IBAction)gekkyuBtn:(UIButton *)sender {
+    //音がなる
+    NSString *path = [[NSBundle mainBundle]pathForResource:@"coin"ofType:@"mp3"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    self.btnSound = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:NULL];
+    [self.btnSound play];
+}
+- (IBAction)okBtn:(UIButton *)sender {
+    //音がなる
+    NSString *path = [[NSBundle mainBundle]pathForResource:@"coin"ofType:@"mp3"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    self.btnSound = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:NULL];
+    [self.btnSound play];
+}
 
 @end

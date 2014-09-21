@@ -13,7 +13,7 @@
 
 @interface ViewController ()
 //音源用のプロパティを宣言
-@property AVAudioPlayer *coin;
+@property AVAudioPlayer *btnSound;
 @end
 
 @implementation ViewController
@@ -22,11 +22,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    //音源用の何かを読み込む、ここでファイル名を変更
-    NSString *path = [[NSBundle mainBundle]pathForResource:@"coin"ofType:@"mp3"];
-    NSURL *url = [NSURL fileURLWithPath:path];
-    self.coin = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:NULL];
-}
+    }
 
 - (void)didReceiveMemoryWarning
 {
@@ -35,8 +31,11 @@
 }
 
 - (IBAction)startBtn:(UIButton *)sender {
-    //音がなるメソッド
-   [self.coin play];
+    //音がなる
+    NSString *path = [[NSBundle mainBundle]pathForResource:@"coin"ofType:@"mp3"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    self.btnSound = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:NULL];
+   [self.btnSound play];
 }
 
 @end
