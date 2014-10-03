@@ -73,6 +73,17 @@
     }
 }
 
+////必要な変数をMSに渡す????わからん
+//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    //Segueの特定
+//    if ( [[segue identifier] isEqualToString:@"NPtoMS"] ) {
+//        MSViewController *msctrl = [segue destinationViewController];
+//        //ここで遷移先ビューのクラスの変数vcntlに値を渡している
+//        msctrl.projectName = projectName;
+//    }
+//}
+
 - (IBAction)gekkyuBtn:(UIButton *)sender {
     //音がなる
     NSString *path = [[NSBundle mainBundle]pathForResource:@"coin"ofType:@"mp3"];

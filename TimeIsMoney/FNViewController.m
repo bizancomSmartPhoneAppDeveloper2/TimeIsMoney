@@ -22,7 +22,7 @@
 {
     //新しく追加する変数
     NSInteger resultTime;
-    NSInteger resultCost;
+    float resultCost;
     NSInteger resultJikyu;
 }
 
@@ -39,8 +39,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"%d",_isOver);
-
     // Do any additional setup after loading the view.
     //pjNameResultLabelにプロジェクト名を記入
     self.pjNameLabel.text = [NSString stringWithFormat:@"%@",_projectName];
@@ -66,7 +64,7 @@
     }
     self.resultTimeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",(long)_hours,(long)_minutes,(long)_seconds];
 
-    //resultCostLabelに総コストから報酬額を引いた金額を記入
+    //resultCostLabelに報酬額から総コストを引いた金額を記入
     resultCost = (_hours*_jikyu)+((_minutes*_jikyu)/60)+((_seconds*_jikyu)/3600);
     resultCost = _housyu - resultCost;
     self.resultCostLabel.text = [NSString stringWithFormat:@"%ld",(long)resultCost];
@@ -79,9 +77,10 @@
         self.resultJikyuLabel.text = [NSString stringWithFormat:@"%ld",(long)resultJikyu];
     }
     
-    //時間コストの収支がマイナスだった場合背景を赤くする
-    if (resultCost < 0) {
+    //時間過ぎていた場合背景を赤くする
+    if (_isOver) {
         self.backImage.image = [UIImage imageNamed:@"fnback02"]; //背景画像を変更する
+        [self.otuBtn setImage:[UIImage imageNamed:@"btnOtsuRed"] forState:UIControlStateNormal];//ボタンも変更する
     }
 }
 

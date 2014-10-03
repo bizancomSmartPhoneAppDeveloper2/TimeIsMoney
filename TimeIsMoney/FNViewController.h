@@ -25,4 +25,6 @@
 @property float mokuhyouJikan;
 @property NSInteger mokuhyouJikanKirisute;
 
+//ボタンの色を変えるためにプロパティを宣言
+@property (weak, nonatomic) IBOutlet UIButton *otuBtn;
 @end

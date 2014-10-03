@@ -13,4 +13,8 @@
 @interface MSViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *jikyuLabel;
 
+////NPからもらう変数 なんかsegueでエラーが出る
+//@property float housyu;
+//@property NSString *projectName;
+
 @end

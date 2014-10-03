@@ -46,8 +46,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //isOverの初期値を確認
-    NSLog(@"isOverの初期値は%d",isOver);
     // Do any additional setup after loading the view.
     //プロジェク名と状態をラベルに表示
     self.pjNameLabel.text = [NSString stringWithFormat:@"%@",_projectName];
@@ -147,6 +145,9 @@
             NSURL *url = [NSURL fileURLWithPath:path];
             self.btnSound = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:NULL];
             [self.btnSound play];
+            //ついでにボタンを変える
+            [self.startStopButton setImage:[UIImage imageNamed:@"btnStartRed"] forState:UIControlStateNormal];
+            [self.finishBtn setImage:[UIImage imageNamed:@"btnFinishRed"] forState:UIControlStateNormal];
         }
     }
     else{

@@ -101,7 +101,7 @@
                                 </state>
                                 <connections>
                                     <action selector="gekkyuBtn:" destination="VkJ-d8-TsN" eventType="touchUpInside" id="Xd7-EZ-NVN"/>
-                                    <segue destination="2bd-SU-J0E" kind="modal" id="1gQ-an-FvD"/>
+                                    <segue destination="2bd-SU-J0E" kind="modal" id="YQy-oc-fET"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -113,7 +113,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aMu-8H-Ag1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="758" y="44"/>
+            <point key="canvasLocation" x="744" y="20"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="XHo-ND-Inc">
@@ -195,7 +195,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fxg-yI-UBz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1321" y="44"/>
+            <point key="canvasLocation" x="1655" y="-201"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="GSx-Jg-rFE">
@@ -240,6 +240,7 @@
                                 <state key="normal" backgroundImage="btnStart">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <state key="selected" backgroundImage="btnStartRed"/>
                                 <connections>
                                     <action selector="startStopButton:" destination="p0p-wN-6Ax" eventType="touchUpInside" id="9w5-Zy-lEo"/>
                                 </connections>
@@ -261,8 +262,10 @@
                     <connections>
                         <outlet property="TimeCostLabel" destination="qRO-9U-l88" id="k37-wW-3wd"/>
                         <outlet property="backImage" destination="JBK-Hk-G7L" id="phB-nL-dCV"/>
+                        <outlet property="finishBtn" destination="eCh-a4-04g" id="0LQ-jA-zqp"/>
                         <outlet property="pjNameLabel" destination="Jra-5G-q57" id="bbC-ZL-d6S"/>
                         <outlet property="pjTimeLabel" destination="x0z-BU-gx8" id="Dm1-S1-qNk"/>
+                        <outlet property="startStopButton" destination="Bhf-Tk-I0E" id="q5x-Wu-tue"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ic6-Fn-hrv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -326,6 +329,7 @@
                     </view>
                     <connections>
                         <outlet property="backImage" destination="n67-dL-onf" id="2iv-fa-xcU"/>
+                        <outlet property="otuBtn" destination="kLV-Pt-tVQ" id="3QG-KL-P53"/>
                         <outlet property="pjNameLabel" destination="K3U-T7-jpc" id="hRn-Xq-UXO"/>
                         <outlet property="resultCostLabel" destination="jRc-kA-vZ4" id="HmM-2p-mUe"/>
                         <outlet property="resultJikyuLabel" destination="nKT-A1-3fK" id="70Z-vp-7v7"/>
@@ -344,6 +348,7 @@
         <image name="btnOk" width="488" height="100"/>
         <image name="btnOtsu" width="488" height="100"/>
         <image name="btnStart" width="488" height="100"/>
+        <image name="btnStartRed" width="488" height="100"/>
         <image name="btnTop" width="140" height="220"/>
         <image name="cdback01" width="640" height="1136"/>
         <image name="fnback01" width="640" height="1136"/>
